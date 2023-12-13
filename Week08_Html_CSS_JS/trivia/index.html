@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <title>Trivia!</title>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>Trivia!</h1>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>Part 1: Multiple Choice </h2>
+            <hr>
+            <h3 id="question1">What is the capital of France?</h3>
+            <button class="choice" onclick="checkAnswer(this)">Paris</button>
+            <button class="choice" onclick="checkAnswer(this)">Berlin</button>
+            <button class="choice" onclick="checkAnswer(this)">Madrid</button>
+            <div id="result1"></div>
+        </div>
+
+        <div class="section">
+            <h2>Part 2: Free Response</h2>
+            <hr>
+            <h3 id="question2">What is the largest planet in our solar system?</h3>
+            <input type="text" id="answerInput">
+            <button onclick="checkFreeResponse()">Submit</button>
+            <div id="result2"></div>
+        </div>
+    </div>
+</body>
+</html>
