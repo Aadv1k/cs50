@@ -1,0 +1,10 @@
+h1,h2,h3 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.75rem;
+    line-height: 1;
+    font-weight: bold;
+}
+
+* {
+    font-family: 'Iosevka Curly', 'Source Code Pro', 'DejaVu Sans Mono', 'Ubuntu Mono', 'Consolas', monospace;
+}

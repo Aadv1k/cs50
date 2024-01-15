@@ -1,5 +1,8 @@
-# CS50 2023 🦆
+# CS50 🦆
 
 This is a mirror repository, not a full-setup. Although feel free to use any of this work as reference.
 
-This course was done over the course of 4 days, from 10th to 14th Dec 2023. I submitted [cybernated](https://github.com/aadv1k/cybernated) as the final project. 
+| Course                                            | Source Code                                       | Date                    |
+|---------------------------------------------------|---------------------------------------------------|-------------------------|
+| CS50's Web Programming with Python and JavaScript | _in-progress_                                     | 15th Jan 2024 - present |
+| CS50's Introduction to Computer Science           | [Source Code](./Introduction_To_Computer_Science) | 10th - 14th, Dec 2023   |
