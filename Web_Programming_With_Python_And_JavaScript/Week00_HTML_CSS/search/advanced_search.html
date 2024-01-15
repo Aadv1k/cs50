@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Advanced Search</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #202124;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .main__title img {
+            width: 272px;
+            height: 92px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 500px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .btn--primary {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 150px;
+            background-color: #2d88ff; /* Blue color for regular search button */
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .main__actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn--secondary {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #4285f4; /* Google blue for secondary buttons */
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="main__title">
+            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png" alt="Google">
+        </div>
+        <form action="https://www.google.com/search" method="GET">
+            <div>
+                <label for="all-words">All these words:</label>
+                <input type="text" id="all-words" name="all-words">
+            </div>
+            <div>
+                <label for="exact-phrase">Exact word or phrase:</label>
+                <input type="text" id="exact-phrase" name="exact-phrase">
+            </div>
+            <div>
+                <label for="any-words">Any of these words:</label>
+                <input type="text" id="any-words" name="any-words">
+            </div>
+            <div>
+                <label for="none-words">None of these words:</label>
+                <input type="text" id="none-words" name="none-words">
+            </div>
+            <div>
+                <input class="btn btn--primary" type="submit" value="Advanced Search">
+            </div>
+        </form>
+        <div class="main__actions">
+            <a href="https://google.com" class="btn btn--secondary">Google Search</a>
+            <a href="https://google.com/imghp" class="btn btn--secondary">Image Search</a>
+        </div>
+    </main>
+</body>
+</html>
