@@ -1,0 +1,26 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    <h1>All Pages</h1>
+
+
+      {% if entries|length == 0 %}
+        <i>No entries found</i>
+      {% else %}
+
+    <ul>
+        {% for entry in entries %}
+            <li>
+              <a href="wiki/{{ entry }}">{{ entry }}</a>
+            </li>
+        {% endfor %}
+
+       
+    </ul>
+      {% endif %}
+
+{% endblock %}

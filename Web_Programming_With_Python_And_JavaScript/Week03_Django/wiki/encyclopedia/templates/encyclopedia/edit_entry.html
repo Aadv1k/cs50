@@ -1,0 +1,26 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Editing "{{ entry_title }}"
+{% endblock %}
+
+{% block body %}
+
+<form action="/new_entry/" method="POST">
+    {% csrf_token %}
+
+    <input type="hidden" name="editing" value="true">
+    <div class="mb-3">
+        <label for="entry_title" class="form-label">Entry Title</label>
+        <input name="entry_title" readonly value="{{ entry_title }}" required type="text" class="form-control" id="entry_title">
+    </div>
+    <div class="mb-3">
+        <label for="entry_content" class="form-label">Content (Markdown)</label>
+        <textarea name="entry_content" required class="form-control" id="entry_content" rows="6">{{ entry_content }}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-danger" href="/">Discard</a>
+</form>
+
+{% endblock %}

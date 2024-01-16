@@ -1,0 +1,25 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    New Entry
+{% endblock %}
+
+{% block body %}
+
+<form method="POST">
+{% csrf_token %}
+
+<div class="mb-3">
+  <label  for="entry_title" class="form-label">Entry Title</label>
+  <input name="entry_title" required type="text" class="form-control" id="entry_title" placeholder="Ducks">
+</div>
+<div class="mb-3">
+  <label for="entry_content" class="form-label">Content (Markdown)</label>
+  <textarea name="entry_content" required class="form-control" id="entry_content" rows="6" placeholder="Ducks, and all about ducks..."></textarea>
+</div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <a class="btn btn-danger" href="/">Discard</a>
+</form>
+
+{% endblock %}
