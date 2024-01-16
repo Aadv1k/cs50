@@ -4,12 +4,24 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from .models import User, Auction
+
+def watchlist(request):
+    return HttpResponse("This yo watchlist")
+
+def create_listing(request):
+    if request.method == "GET":
+        return render(request, "auctions/create_listing.html")
+
+    return HttpResponse("Welcome to create listing")
 
 
 def index(request):
-    return render(request, "auctions/index.html")
-
+    listings = Auction.objects.all()
+    listing_count = len(listings)
+    return render(request, "auctions/index.html", {
+        "listing_count": listing_count
+    })
 
 def login_view(request):
     if request.method == "POST":
