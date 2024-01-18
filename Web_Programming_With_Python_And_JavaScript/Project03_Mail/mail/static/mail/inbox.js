@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function handleMailComposition(event) {
     event.preventDefault();
-    const [mailTo, mailSubject, mailBody] =
+    const [_, mailTo, mailSubject] =
         Array.from(document.getElementById("compose-form").querySelectorAll("input")).map(e => e.value);
+    const mailBody = document.getElementById("compose-form").querySelector("textarea").value;
 
     if (!mailTo.split(",").every(e => e.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/))) {
         return;
@@ -74,8 +75,8 @@ function load_mailbox(mailbox) {
                 container.innerHTML = `
                     <strong>${mail.sender}</strong>
                     <div style="display: flex; gap: .5rem">
-                        <p class="m-0 p-0">${mail.subject} -</p>
-                        <p class="m-0 p-0 text-muted">${mail.body.length < 30 ? mail.body : mail.body.slice(30) + '...'} </p>
+<p class="m-0 p-0">${mail.subject.length < 32 ? mail.subject : mail.subject.slice(0, 32) + '...'} -</p>
+<p class="m-0 p-0 text-muted">${mail.body.length < 48 ? mail.body : mail.body.slice(0, 48) + '...'} </p>
                     </div>
                     <p class="text-muted m-0 p-0">${mail.timestamp}</p>`;
 
