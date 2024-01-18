@@ -4,7 +4,35 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Auction
+from .models import User, Auction, Bid
+
+def place_bid(request):
+    if request.method == "POST":
+        bid_amount = request.POST.get("bid_amount")
+        listing_id = request.POST.get("listing_id")
+
+        if not bid_amount or not listing_id:
+            return HttpResponse("403: Invalid data sent", status=403)
+
+
+        initial_bid = Auction.objects.get(id=listing_id)
+
+        if bid_amount <= 
+
+        Bid.objects.create(bid_amount="")
+
+    else:
+        return HttpResponse("405: Method not allowed ", status=405)
+
+
+    
+
+def view_listing(request, id):
+    found_listing = Auction.objects.get(id=id)
+    return render(request, "auctions/view_listing.html", {
+        "listing": found_listing
+    })
+
 
 def watchlist(request):
     return HttpResponse("This yo watchlist")
@@ -20,7 +48,8 @@ def index(request):
     listings = Auction.objects.all()
     listing_count = len(listings)
     return render(request, "auctions/index.html", {
-        "listing_count": listing_count
+        "listing_count": listing_count,
+        "listings": listings
     })
 
 def login_view(request):

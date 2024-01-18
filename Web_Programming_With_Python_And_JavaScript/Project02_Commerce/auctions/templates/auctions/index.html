@@ -2,4 +2,26 @@
 
 {% block body %}
     <h2>Active Listings ({{ listing_count }})</h2>
+
+
+    <div class="card-deck">
+      {% for listing in listings %}
+
+      <div class="card">
+
+        <img class="card-img-top" src="{{ listing.image_url }}" alt="Card image cap" style="width: 100%; object-fit: cover; height: 400px; object-position: top">
+  <h5 class="card-header">{{ listing.title }}</h5>
+        <div class="card-body">
+          <h5 class="card-title">Starts at ${{ listing.starting_bid }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ listing.category }}</h6>
+          <p class="card-text">{{ listing.description }}</p>
+          <a href="/listing/{{ listing.id }}" class="btn btn-primary">View</a>
+        </div>
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+
 {% endblock %}
