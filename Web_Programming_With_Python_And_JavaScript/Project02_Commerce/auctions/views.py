@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
 
-from .models import User, Auction, Bid
+from .models import User, Auction, Bid, Comment
 
 @login_required
 def close_auction(request):
@@ -50,11 +50,13 @@ def place_bid(request):
 def view_listing(request, id):
     found_listing = Auction.objects.get(id=id)
     found_bids = Bid.objects.filter(auction=found_listing).order_by("-bid_amount")
+    found_comments = Comment.objects.filter(auction=found_listing)
     total_bids = len(found_bids)
     return render(request, "auctions/view_listing.html", {
         "listing": found_listing,
         "bids": found_bids,
-        "total_bids": total_bids
+        "total_bids": total_bids,
+        "comments": found_comments
     })
 
 
@@ -75,6 +77,18 @@ def create_listing(request):
         return redirect("index")
 
 
+@login_required
+def add_comment(request):
+    user = request.user
+    listing_id = request.POST.get("listing_id")
+    auction = Auction.objects.get(id=listing_id)
+    comment = request.POST.get("content")
+
+    Comment.objects.create(user=user, text=comment, auction=auction)
+
+
+    return redirect(request.META.get('HTTP_REFERER', None))
+    
 
 def index(request):
     active_listings = Auction.objects.filter(status="Open")
