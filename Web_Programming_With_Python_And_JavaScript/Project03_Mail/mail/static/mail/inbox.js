@@ -124,7 +124,7 @@ async function handleInboxItemClick(id, mailbox) {
                 ${data.archived ? 'Unarchive' : 'Archive'}
             </button>` : ''}
 
-        <button class="mb-4 btn btn-link" onclick="replyToMail('${data.sender}', '${data.subject}', '${data.body}', '${data.timestamp}')">Reply</button>
+        <button class="mb-4 btn btn-link" onclick="replyToMail('${data.sender}', '${data.subject}', \`${data.body}\`, '${data.timestamp}')">Reply</button>
 
         <div class="d-flex justify-content-between align-items-center">
             <div>
