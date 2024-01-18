@@ -1,37 +1,100 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+<div class="container-fluid">
 
-    <div style="height: 400px; width: 100%">
-        <img src="{{ listing.image_url }}" style="width: 100%; height: 100%; object-fit: contain"class="img-fluid" alt="Product Image">
-    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div style="height: 400px; width: 100%">
+                <img src="{{ listing.image_url }}" style="width: 100%; height: 100%; object-fit: contain" class="img-fluid" alt="Product Image">
+            </div>
+        </div>
 
-        <!-- Product Information -->
         <div class="col-md-6">
             <h4>{{ listing.title }}</h4>
             <h1>${{ listing.starting_bid }}</h1> 
 
             {% if user.is_authenticated %}
-                <form action="/">
-                    <div class="form-group">
-                        <label for="bid">(x) bids so far</label>
-                        <input type="number" name="bid" class="form-control" id="bid" aria-describedby="Bid some amount" placeholder="Bid">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Place Bid</button>
-                </form>           
+            <form action="/place_bid" method="POST">
+                {% csrf_token %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger" role="alert" id="error-alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <script>
+                        setTimeout(function(){
+                            document.getElementById("error-alert").style.display = "none";
+                        }, 1500);
+                    </script>
+                {% endif %}
+                <div class="form-group">
+                    <label for="bid">{{ total_bids }} bids so far</label>
+                    <input type="number" name="bid_amount" class="form-control" id="bid" aria-describedby="Bid some amount" placeholder="Bid" {% if listing.status == "closed" %}disabled{% endif %}>
+                    <input name="listing_id" type="hidden" value="{{ listing.id }}"/>
+                </div>
+                <button type="submit" class="btn btn-primary" {% if listing.status == "closed" %}disabled style="opacity: 0.5"{% endif %}>Place Bid</button>
+            </form>           
 
-                {%  else %}
+            {% else %}
             <p>Sign in to place a bid</p>
             
             {% endif %}
 
             <h3>Details</h3>
             <ul>
-              <li><b>Description:</b> {{ listing.description }}</li>
-              <li><b>Listed by:</b>  {{ listing.user.username }}</li>
-              <li><b>Category:</b> {{ listing.category }}</li>
+                <li><b>Description:</b> {{ listing.description }}</li>
+                <li><b>Listed by:</b>  {{ listing.user.username }}</li>
+                <li><b>Category:</b> {{ listing.category }}</li>
+                {% if listing.status == "Closed" %}
+                    <li style="color: red; font-weight: bold;">Status: Closed</li>
+                {% endif %}
             </ul>
-
-
         </div>
+
+        <div class="col-12 col-md-6" style="margin-left: auto">
+            <h2>Bids</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Bidder</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bid in bids %}
+                    <tr>
+                        <td>{{ bid.user.username }}</td>
+                        <td>${{ bid.bid_amount }}</td>
+                        <td>
+                          <div class="btn-group">
+
+                            {% if user.id == listing.user.id and listing.status != "Closed" %}
+                            <form method="post" action="/close_auction">
+                              {% csrf_token %}
+                              <input type="hidden" name="listing_id" value="{{ listing.id }}">
+                              <button type="submit" class="btn btn-secondary">Take and Close</button>
+                            </form>
+                            {% endif %}
+
+                            {% if bid.user.id == user.id and listing.status != "Closed" %}
+                                <button class="btn btn-danger">Delete</button>
+                            {% endif %}
+
+                            {% if listing.status == "Closed" %}
+                                <button class="btn btn-secondary" disabled style="opacity: 0.5">Closed</button>
+                            {% endif %}
+                          </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
 {% endblock %}
+<div

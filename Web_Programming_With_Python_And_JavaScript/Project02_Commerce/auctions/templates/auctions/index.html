@@ -1,16 +1,13 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings ({{ listing_count }})</h2>
-
+    <h2>Active Listings ({{ active_listing_count }})</h2>
 
     <div class="card-deck">
-      {% for listing in listings %}
-
-      <div class="card">
-
+      {% for listing in active_listings %}
+      <div class="card col-sm-12 col-md-6">
         <img class="card-img-top" src="{{ listing.image_url }}" alt="Card image cap" style="width: 100%; object-fit: cover; height: 400px; object-position: top">
-  <h5 class="card-header">{{ listing.title }}</h5>
+        <h5 class="card-header">{{ listing.title }}</h5>
         <div class="card-body">
           <h5 class="card-title">Starts at ${{ listing.starting_bid }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ listing.category }}</h6>
@@ -18,10 +15,25 @@
           <a href="/listing/{{ listing.id }}" class="btn btn-primary">View</a>
         </div>
       </div>
-
       {% endfor %}
-
     </div>
 
+    <hr>
 
+    <h2>Closed Auctions ( {{ closed_listing_count }} )</h2>
+
+    <div class="card-deck" style="opacity: 60%; filter: grayscale(20);">
+      {% for listing in closed_listings %}
+      <div class="card col-sm-12 col-md-6">
+        <img class="card-img-top" src="{{ listing.image_url }}" alt="Card image cap" style="width: 100%; object-fit: cover; height: 400px; object-position: top">
+        <h5 class="card-header">{{ listing.title }}</h5>
+        <div class="card-body">
+          <h5 class="card-title">Started at ${{ listing.starting_bid }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ listing.category }}</h6>
+          <p class="card-text">{{ listing.description }}</p>
+          <p class="card-text">Auction Closed</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
 {% endblock %}

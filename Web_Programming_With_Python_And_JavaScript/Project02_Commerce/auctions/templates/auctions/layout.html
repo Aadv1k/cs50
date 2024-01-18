@@ -37,10 +37,6 @@
 
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'watchlist' %}">Watchlist</a>
-                </li>
-
-                <li class="nav-item">
                     <a class="nav-link" href="{% url 'create_listing' %}">Create Listing</a>
                 </li>
             {% endif %}

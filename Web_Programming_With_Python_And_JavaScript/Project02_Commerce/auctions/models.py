@@ -13,6 +13,7 @@ class Base(models.Model):
         abstract = True
 
 CATEGORIES = tuple((x, x.upper()) for x in ["Fashion", "None", "Toys", "Electronics", "Home"])
+STATUS = tuple((x, x.upper()) for x in ["Closed", "Open", "Deleted"])
 
 class Auction(Base):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -21,6 +22,7 @@ class Auction(Base):
     title = models.CharField(max_length=255)
     description = models.TextField()
     starting_bid = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=32, choices=STATUS, default="Open", null=True)
 
     def __str__(self):
         return self.title

@@ -17,6 +17,11 @@
             <label for="id_starting_bid">Starting Bid:</label>
             <input type="number" class="form-control" id="id_starting_bid" name="starting_bid" step="0.01" required>
         </div>
+        <div class="form-group">
+            <label for="id_cover_url">Cover URL (optional):</label>
+            <input type="url" class="form-control" id="id_cover_url" name="cover_url">
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{% url 'index' %}" class="btn btn-secondary">Discard</a>
     </form>
 </div>{% endblock %}

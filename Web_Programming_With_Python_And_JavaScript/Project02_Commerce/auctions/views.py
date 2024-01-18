@@ -1,36 +1,60 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+
+from django.contrib import messages
 
 from .models import User, Auction, Bid
 
+@login_required
+def close_auction(request):
+    if request.method == "POST":
+        listing_id = request.POST.get("listing_id")
+        listing = Auction.objects.get(id=listing_id)
+
+        if request.user.id != listing.user.id:
+            pass
+
+        listing.status = "Closed"
+        listing.save()
+
+        return redirect(f"/listing/{listing_id}")
+    else:
+      return redirect("/")
+    
+
+@login_required
 def place_bid(request):
     if request.method == "POST":
         bid_amount = request.POST.get("bid_amount")
         listing_id = request.POST.get("listing_id")
 
+        listing = Auction.objects.get(id=listing_id)
+
         if not bid_amount or not listing_id:
-            return HttpResponse("403: Invalid data sent", status=403)
+            messages.error(request, "Invalid data sent")
+        else:
+            if int(bid_amount) <= int(listing.starting_bid):
+                messages.error(request, f"Can't make a bid lower than ${listing.starting_bid}")
+            else:
+                Bid.objects.create(bid_amount=bid_amount, user=request.user, auction=listing)
+                messages.info(request, "Successfully placed a bid")
 
-
-        initial_bid = Auction.objects.get(id=listing_id)
-
-        if bid_amount <= 
-
-        Bid.objects.create(bid_amount="")
-
+        return redirect(f"/listing/{listing.id}")
     else:
-        return HttpResponse("405: Method not allowed ", status=405)
-
-
-    
+      return redirect('index') 
 
 def view_listing(request, id):
     found_listing = Auction.objects.get(id=id)
+    found_bids = Bid.objects.filter(auction=found_listing).order_by("-bid_amount")
+    total_bids = len(found_bids)
     return render(request, "auctions/view_listing.html", {
-        "listing": found_listing
+        "listing": found_listing,
+        "bids": found_bids,
+        "total_bids": total_bids
     })
 
 
@@ -40,16 +64,30 @@ def watchlist(request):
 def create_listing(request):
     if request.method == "GET":
         return render(request, "auctions/create_listing.html")
+    elif request.method == "POST":
+        desc = request.POST.get("description")
+        title = request.POST.get("title")
+        cover_url = request.POST.get("cover_url")
+        starting_bid = request.POST.get("starting_bid")
 
-    return HttpResponse("Welcome to create listing")
+        Auction.objects.create(user_id=request.user.id, description=desc, title=title, image_url=cover_url, starting_bid=starting_bid)
+
+        return redirect("index")
+
 
 
 def index(request):
-    listings = Auction.objects.all()
-    listing_count = len(listings)
+    active_listings = Auction.objects.filter(status="Open")
+    closed_listings = Auction.objects.filter(status="Closed")
+
+    active_listing_count = len(active_listings)
+    closed_listing_count = len(closed_listings)
+
     return render(request, "auctions/index.html", {
-        "listing_count": listing_count,
-        "listings": listings
+        "active_listings": active_listings,
+        "closed_listings": closed_listings,
+        "active_listing_count": active_listing_count,
+        "closed_listing_count": closed_listing_count,
     })
 
 def login_view(request):
