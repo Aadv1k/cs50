@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
 
-from .models import User, Post
+from .models import User, Post, Follow
 
 
 @login_required
@@ -21,6 +21,20 @@ def create_post(request):
     messages.info(request, "Successfully created a post")
 
     return redirect(reverse("index"))
+
+def following_page(request, username, follow_type):
+    users = None
+    user = User.objects.get(username=username)
+
+    if follow_type == "following":
+        users = Follow.objects.filter(follow_from=user.id)
+    else:
+        users = Follow.objects.filter(follow_to=user.id)
+
+    return render(request, "network/following.html", {
+        "users": users,
+        "page_type": follow_type
+    })
 
 def profile_page(request, username):
     current_user = User.objects.get(username=username)

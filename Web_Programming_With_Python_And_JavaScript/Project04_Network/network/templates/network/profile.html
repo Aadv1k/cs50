@@ -17,7 +17,7 @@
     </div>
     </div>
 
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and user.id != current_user.id %}
       <button class="btn btn-primary my-3">Follow</button>
     {% endif %}
 

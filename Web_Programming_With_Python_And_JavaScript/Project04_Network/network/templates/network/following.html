@@ -1,0 +1,29 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+{% if users|length > 0 %}
+{% for user in users %}
+
+<div class="card">
+  <div class="card-body d-flex justify-content-between">
+    <div>
+      <h3 class="card-title">{{ user.follow_from.username }}</h3>
+    </div>
+
+    {% if user.is_authenticated  %}
+      <button class="btn btn-primary my-3">Follow</button>
+    {% endif %}
+  </div>
+</div>
+
+
+{% endfor %}
+{% else %}
+
+<em class="h4">No {{ page_type }} Found!</em>
+
+{% endif %}
+
+
+{% endblock %}
