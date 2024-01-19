@@ -10,4 +10,5 @@ Started: 15th Jan 2024
 |                                              | Week 3: Django                     |
 | [Project 3 - Commerce](./Project03_Commerce) | Week 4: SQL, Models and Migrations |
 |                                              | Week 5: User Interfaces            |
+| [Project 4 - Network](./Project04_Network)   | Week 7: Testing, CI/CD             |
 

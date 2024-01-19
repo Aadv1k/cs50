@@ -108,7 +108,7 @@ def profile_page(request, username):
     })    
 
 def index(request):
-    all_posts = Post.objects.all()
+    all_posts = Post.objects.all().order_by("-created_at")
     
     return render(request, "network/index.html", {
         "posts": all_posts
