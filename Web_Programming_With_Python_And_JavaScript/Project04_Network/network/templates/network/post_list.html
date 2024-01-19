@@ -1,4 +1,3 @@
-
 {% block content %}
 
     {% for post in posts %}
@@ -9,22 +8,69 @@
                 <p class="text-muted">{{ post.created_at }}</p>
             </div>
 
-            <p class="card-body"> {{ post.text }} </p>
+            <p class="card-text"> {{ post.text }} </p>
 
-
-            <div>
+            <div class="d-flex gap-2">
               <a href="{% url 'like' post.id %}" class="btn btn-link" style="--bs-btn-font-size: 1.05rem;">👍 Likes {{ post.like_set.all|length }}</a>
 
               {% if post.author.id == user.id %}
-                <div class="btn btn-link fs-text-6" style="--bs-btn-font-size: 1.05rem;" >✏️ Edit</div>
+                <div class="btn btn-link fs-text-6" id="editButtons{{ post.id }}" style="--bs-btn-font-size: 1.05rem;" onclick="editPost(event, {{ post.id }})">✏️ Edit</div>
+                <div class="btn btn-link fs-text-6" style="--bs-btn-font-size: 1.05rem; display: none;" id="saveButton{{ post.id }}" onclick="savePost(event, {{ post.id }})">💾 Save</div>
               {% endif %}
-              
-            </div>
 
+            </div>
 
           </div>
         </div>
-
-
     {% endfor  %}
+
+    <script>
+        function editPost(e, postId) {
+            const cardBody = e.target.parentElement.parentElement.querySelector(".card-text");
+            const textarea = document.createElement("textarea");
+
+            document.getElementById(`editButtons${postId}`).style.display = "none";
+            document.getElementById(`saveButton${postId}`).style.display = "block";
+
+            e.target.removeEventListener("click", () => editPost(event, postId));
+            document.getElementById(`saveButton${postId}`).addEventListener("click", () => savePost(event, postId));
+
+            textarea.classList.add("form-control");
+            textarea.value = cardBody?.innerText ?? "";
+            cardBody?.parentNode?.replaceChild?.(textarea, cardBody);
+        }
+
+        function savePost(e, postId) {
+            const cardParent = e.target.parentElement.parentElement;
+            const cardBody = e.target.parentElement.parentElement.querySelector(".card-body");
+            const textarea = e.target.parentElement.parentElement.querySelector("textarea");
+            const newText = textarea.value;
+
+            // Perform the fetch request to save the edited content
+            fetch(`{% url 'edit_post' %}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: JSON.stringify({ text: newText, postId: postId }),
+            })
+            .then(response => {
+                // Once the request is successful, update the UI and make the original edit button visible again
+
+                const para = document.createElement("p")
+                para.innerText = newText;
+                para.classList.add("card-text")
+
+                textarea.insertAdjacentElement("afterend", para)
+                textarea.remove();
+
+                document.getElementById(`editButtons${postId}`).style.display = "inline-block";
+                document.getElementById(`saveButton${postId}`).style.display = "none";
+                document.getElementById(`editButtons${postId}`).addEventListener("click", () => editPost(event, postId));
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+
 {% endblock content %}

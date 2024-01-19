@@ -4,6 +4,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+
+import json
+
 
 from django.contrib import messages
 
@@ -67,6 +71,23 @@ def follow(request):
     else:
         messages.error(request, "Invalid request method.")
         return HttpResponseRedirect("/", status=405)
+
+@csrf_exempt
+def edit_post(request):
+    if request.method != "PUT":
+        return HttpResponse("Method Not Allowed", status=405)
+
+    json_data = json.loads(request.body.decode('utf-8'))
+   
+    post_id = json_data.get("postId")
+    text = json_data.get("text")
+
+    found_post = get_object_or_404(Post, id=int(post_id))
+    
+    found_post.text = text
+    found_post.save()
+
+    return HttpResponse("Updated successfully!", status=200)
 
 def profile_page(request, username):
     current_user = get_object_or_404(User, username=username)
