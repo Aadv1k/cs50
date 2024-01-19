@@ -13,4 +13,7 @@ urlpatterns = [
     path("profile/<str:username>", views.profile_page, name="profile_page"),
     path("profile/<str:username>/following", views.following_page, {'follow_type': 'following'}, name="following"),
     path("profile/<str:username>/followers", views.following_page, {'follow_type': 'followers'}, name="followers"),
+
+    path("follow", views.follow, name="follow")
+
 ]

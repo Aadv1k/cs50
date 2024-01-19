@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
@@ -36,15 +36,42 @@ def following_page(request, username, follow_type):
         "page_type": follow_type
     })
 
+@login_required
+def follow(request):
+    if request.method == "POST":
+        uid = request.POST.get("user_id")
+        user_to_follow = get_object_or_404(User, id=uid)
+        already_followed = Follow.objects.filter(follow_from=request.user, follow_to=user_to_follow).exists()
+
+        if already_followed:
+            Follow.objects.filter(follow_from=request.user, follow_to=user_to_follow).delete()
+            messages.success(request, f"You have unfollowed {user_to_follow.username}.")
+        else:
+            Follow.objects.create(follow_from=request.user, follow_to=user_to_follow)
+            messages.success(request, f"You are now following {user_to_follow.username}.")
+
+        return redirect(request.META.get('HTTP_REFERER', reverse('index')))
+    else:
+        messages.error(request, "Invalid request method.")
+        return HttpResponseRedirect("/", status=405)
+
 def profile_page(request, username):
-    current_user = User.objects.get(username=username)
-    user_posts = Post.objects.filter(author_id=current_user).order_by("-created_at")
+    current_user = get_object_or_404(User, username=username)
+    user_posts = Post.objects.filter(author=current_user).order_by("-created_at")
+    following_count = followers_count = 0
+
+    if request.user.is_authenticated:
+        following_count = Follow.objects.filter(follow_from=request.user).count()
+        followers_count = Follow.objects.filter(follow_to=request.user).count()
+        following = Follow.objects.filter(follow_from=request.user, follow_to=current_user).exists()
 
     return render(request, "network/profile.html", {
         "current_user": current_user,
+        "following": following,
+        "following_count": following_count,
+        "followers_count": followers_count,
         "posts": user_posts,
-    })
-    
+    })    
 
 def index(request):
     all_posts = Post.objects.all()

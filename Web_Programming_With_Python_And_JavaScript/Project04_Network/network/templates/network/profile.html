@@ -12,13 +12,23 @@
     </div>
 
     <div class="d-flex gap-2">
-      <a href="#" class="link">0 Followers</a>
-      <a href="#" class="link">0 Following</a>
+      <a href="#" class="link">{{ followers_count }} Followers</a>
+      <a href="#" class="link">{{ following_count }} Following</a>
     </div>
     </div>
 
     {% if user.is_authenticated and user.id != current_user.id %}
-      <button class="btn btn-primary my-3">Follow</button>
+
+    <form action="{% url 'follow' %}" method="post" >
+      {% csrf_token %}
+      <input name="user_id" type="hidden" value="{{ current_user.id }}"/>
+        {% if following %}
+            <button type="submit" class="btn btn-secondary my-3">Unfollow</button>
+        {% else %}
+            <button type="submit" class="btn btn-primary my-3">Follow</button>
+        {% endif %}
+    </form>
+
     {% endif %}
 
   </div>
