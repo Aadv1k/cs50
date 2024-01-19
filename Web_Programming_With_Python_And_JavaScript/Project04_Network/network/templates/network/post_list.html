@@ -1,0 +1,31 @@
+
+{% block content %}
+
+    {% for post in posts %}
+        <div class="card my-2">
+          <div class="card-body">
+            <div>
+                <a href="{% url 'profile_page' post.author.username %}" class="h5 card-title">{{ post.author.username }}</a>
+                <p class="text-muted">{{ post.created_at }}</p>
+            </div>
+
+            <p class="card-body"> {{ post.text }} </p>
+
+
+            <div>
+              <div class="btn btn-link" style="--bs-btn-font-size: 1.05rem;">👍 Likes (0)</div>
+              <div class="btn btn-link" style="--bs-btn-font-size: 1.05rem;">💬 Comments (0)</div>
+
+              {% if post.author.id == user.id %}
+                <div class="btn btn-link fs-text-6" style="--bs-btn-font-size: 1.05rem;">✏️ Edit</div>
+              {% endif %}
+              
+            </div>
+
+
+          </div>
+        </div>
+
+
+    {% endfor  %}
+{% endblock content %}

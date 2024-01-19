@@ -1,0 +1,38 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <h1>All Posts</h1>
+
+    {% if user.is_authenticated %}
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">New Post</h3>
+                
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+
+                    <script>
+                      setTimeout(() => {
+                        for (const elem of document.getElementsByClassName("alert")) {
+                            elem.remove();
+                        }
+                      }, 1500)
+                    </script>
+
+                {% endfor %}
+                
+                <form method="POST" action="{% url 'create_post' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea required class="form-control" name="text" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+
+    {% include "network/post_list.html" %}
+{% endblock %}
