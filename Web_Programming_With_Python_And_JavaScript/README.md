@@ -8,4 +8,6 @@ Started: 15th Jan 2024
 | [Project 1 - Wiki](./Project01_Wiki)         | Week 1: Git                        |
 |                                              | Week 2: Python                     |
 |                                              | Week 3: Django                     |
-| [Project 2 - Commerce](./Project03_Commerce) | Week 4: SQL, Models and Migrations |
+| [Project 3 - Commerce](./Project03_Commerce) | Week 4: SQL, Models and Migrations |
+|                                              | Week 5: User Interfaces            |
+
