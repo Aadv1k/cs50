@@ -13,11 +13,10 @@
 
 
             <div>
-              <div class="btn btn-link" style="--bs-btn-font-size: 1.05rem;">👍 Likes (0)</div>
-              <div class="btn btn-link" style="--bs-btn-font-size: 1.05rem;">💬 Comments (0)</div>
+              <a href="{% url 'like' post.id %}" class="btn btn-link" style="--bs-btn-font-size: 1.05rem;">👍 Likes {{ post.like_set.all|length }}</a>
 
               {% if post.author.id == user.id %}
-                <div class="btn btn-link fs-text-6" style="--bs-btn-font-size: 1.05rem;">✏️ Edit</div>
+                <div class="btn btn-link fs-text-6" style="--bs-btn-font-size: 1.05rem;" >✏️ Edit</div>
               {% endif %}
               
             </div>

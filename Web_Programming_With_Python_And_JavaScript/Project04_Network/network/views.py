@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
 
-from .models import User, Post, Follow
+from .models import User, Post, Follow, Like
 
 
 @login_required
@@ -35,6 +35,19 @@ def following_page(request, username, follow_type):
         "users": users,
         "page_type": follow_type
     })
+
+
+@login_required
+def like(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    has_already_liked = Like.objects.filter(post=post, liked_by=request.user).exists()
+
+    if has_already_liked:
+        Like.objects.filter(post=post, liked_by=request.user).delete()
+    else:
+        Like.objects.create(post=post, liked_by=request.user)
+
+    return redirect(request.META.get('HTTP_REFERER', reverse('index')))
 
 @login_required
 def follow(request):
@@ -75,6 +88,7 @@ def profile_page(request, username):
 
 def index(request):
     all_posts = Post.objects.all()
+    
     return render(request, "network/index.html", {
         "posts": all_posts
     })
