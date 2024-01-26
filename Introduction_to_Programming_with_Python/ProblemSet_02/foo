@@ -1,0 +1,8 @@
+while (s := 0) < 50:
+    print(f"Amount Due: {50 - s}")
+    coin = int(input("Insert Coin: "))
+    if coin not in [25, 10, 5]:
+        continue
+    s += coin
+
+print(f"Change Owed: {max(s - 50, 0)}")
