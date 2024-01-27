@@ -28,15 +28,15 @@
 - Started: 15th Jan, 2024
 - Ended: 19th Jan, 2024 
   
-| Submissions                                                                             | Lecture(s)                         |
-|-----------------------------------------------------------------------------------------|------------------------------------|
-| [Project 0 - Search](./Web_Programming_With_Python_And_JavaScript/Project00_Search)     | Week 0: HTML, CSS                  |
-| [Project 1 - Wiki](./Web_Programming_With_Python_And_JavaScript/Project01_Wiki)         | Week 1: Git                        |
-|                                                                                         | Week 2: Python                     |
-|                                                                                         | Week 3: Django                     |
-| [Project 3 - Commerce](./Web_Programming_With_Python_And_JavaScript/Project03_Commerce) | Week 4: SQL, Models and Migrations |
-|                                                                                         | Week 5: User Interfaces            |
-| [Project 4 - Network](./Web_Programming_With_Python_And_JavaScript/Project04_Network)   | Week 7: Testing, CI/CD             |
+| Submissions                                                                             | Lecture(s)                         | Submitted Video                       |
+|-----------------------------------------------------------------------------------------|------------------------------------|---------------------------------------|
+| [Project 0 - Search](./Web_Programming_With_Python_And_JavaScript/Project00_Search)     | Week 0: HTML, CSS                  | [Video](https://youtu.be/SjYDpnhTblQ) |
+| [Project 1 - Wiki](./Web_Programming_With_Python_And_JavaScript/Project01_Wiki)         | Week 1: Git                        | [Video](https://youtu.be/eNK_9cNZdrM) |
+|                                                                                         | Week 2: Python                     |                                       |
+|                                                                                         | Week 3: Django                     |                                       |
+| [Project 2 - Commerce](./Web_Programming_With_Python_And_JavaScript/Project02_Commerce) | Week 4: SQL, Models and Migrations | [Video](https://youtu.be/Dhx7Ojj_Ac0) |
+| [Project 3 - Mail](./Web_Programming_With_Python_And_JavaScript/Project03_Mail)         | Week 5: User Interfaces            | [Video](https://youtu.be/yePz5n6vb_U) |
+| [Project 4 - Network](./Web_Programming_With_Python_And_JavaScript/Project04_Network)   | Week 7: Testing, CI/CD             | [Video](https://youtu.be/JidI6NyxamU) |
 
 ## CS50's Introduction to Computer Science
 
