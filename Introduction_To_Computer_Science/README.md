@@ -1,4 +1,4 @@
-# CS50's Introduction to Computer Science
+## CS50's Introduction to Computer Science
 
 Started: Dec 10 2023
 Ended: Dec 14 2023
