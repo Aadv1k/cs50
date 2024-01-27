@@ -1,22 +1,41 @@
 from plates import is_valid
-import pytest
 
 
-def test_valid_plate():
-    assert is_valid("ABC123")
+def main():
+    test_min_max_characters()
+    test_start_with_two_letters()
+    test_number_zero()
+    test_number_zero()
+    test_special_chars()
 
 
-def test_invalid_plate_too_short():
-    assert not is_valid("AB123")
+def test_min_max_characters():
+    assert is_valid("AA") == True
+    assert is_valid("ABCDEF") == True
+    assert is_valid("A") == False
+    assert is_valid("ABCDEFGH") == False
 
 
-def test_invalid_plate_too_long():
-    assert not is_valid("ABCDE12345")
+def test_start_with_two_letters():
+    assert is_valid("AA") == True
+    assert is_valid("A2") == False
+    assert is_valid("2A") == False
+    assert is_valid("2") == False
 
 
-def test_invalid_plate_invalid_characters():
-    assert not is_valid("ABC#123")
+def test_numbers_middle():
+    assert is_valid("AAA222") == True
+    assert is_valid("AAA22A") == False
 
 
-def test_invalid_plate_missing_letters():
-    assert not is_valid("123456")
+def test_number_zero():
+    assert is_valid("CS50") == True
+    assert is_valid("CS05") == False
+
+
+def test_special_chars():
+    assert is_valid("????") == False
+
+
+if __name__ == "__main__":
+    main()

@@ -1,21 +1,19 @@
 def main():
-    pass
+    print("Valid" if is_valid(input("Input: ")) else "Invalid")
 
 
 def is_valid(s):
-    if len(s) != 6:
+    if not (len(s) >= 2 and len(s) <= 6):
         return False
 
-    letters = s[:3]
-    numbers = s[3:]
-
-    if not letters.isalpha() or not numbers.isdigit():
+    if any((i in s for i in [" ", ".", "?"])):
         return False
 
-    if letters.islower():
+    nums = [i for i in s if i.isdigit()]
+    if len(nums) and nums[0] == '0':
         return False
 
-    if numbers.startswith("0"):
+    if len(nums) and not (s[0].isdigit() or s[-1:].isdigit()):
         return False
 
     return True
