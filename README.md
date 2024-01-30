@@ -10,7 +10,9 @@
 ## CS50's Introduction to Programming with Python
 
 - Started: Jan 26, 2024
-- Ended: 
+- Ended: Jan 30, 2024
+
+**Final Project**: [practically-api-wrapper](https://github.com/aadv1k/practically-api-wrapper)
 
 | Submissions                                                                                                      | Problem Set |
 |------------------------------------------------------------------------------------------------------------------|-------------|
@@ -21,12 +23,16 @@
 | [Adieu, Bitcoin, Emojize, Figlet, Game, Professor](./Introduction_To_Programming_with_Python/ProblemSet_04)      | 4           |
 | [(test) Bank, (test) Fuel, (test) Plates, (test) Twttr](./Introduction_To_Programming_with_Python/ProblemSet_04) | 5           |
 | [Lines, Pizza, Scourgify, Shirt](./Introduction_To_Programming_with_Python/ProblemSet_06)                        | 6           |
+| [Numb3rs, Response, Um, Watch, Working](./Introduction_To_Programming_with_Python/ProblemSet_07)                 | 7           |
+| [Jar, Seasons, Shirtificate](./Introduction_To_Programming_with_Python/ProblemSet_08)                            | 8           |
 
 
 ## CS50's Web Programming with Python and JavaScript
 
 - Started: 15th Jan, 2024
-- Ended: 19th Jan, 2024 
+- Ended: 19th Jan, 2024 (Project 01 got rejected due to bad video, resubmitted, and pending)
+
+**Final Project**: [Cache it Pls!](https://github.com/aadv1k/cache-it-pls)
   
 | Submissions                                                                             | Lecture(s)                         | Submitted Video                       |
 |-----------------------------------------------------------------------------------------|------------------------------------|---------------------------------------|
