@@ -30,7 +30,7 @@
 ## CS50's Web Programming with Python and JavaScript
 
 - Started: 15th Jan, 2024
-- Ended: 19th Jan, 2024 (Project 01 got rejected due to bad video, resubmitted, and pending)
+- Ended: ~~19th Jan, 2024 (Project 01 got rejected due to bad video, resubmitted, and pending)~~ 8th Feb, 2024
 
 **Final Project**: [Cache it Pls!](https://github.com/aadv1k/cache-it-pls)
   
